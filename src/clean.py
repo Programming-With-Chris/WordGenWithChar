@@ -13,6 +13,10 @@ def stories_to_char_array(story_array):
 
 
 def build_char_dictionaries(char_array):
-    char_indices = dict((c, i) for i, c in enumerate(char_array))
-    indices_char = dict((i, c) for i, c in enumerate(char_array))
-    return char_indices, indices_char
+
+    char_vocab = sorted(set(char_array))
+
+    char_indices = dict((c, i) for i, c in enumerate(char_vocab))
+    indices_char = dict((i, c) for i, c in enumerate(char_vocab))
+
+    return char_indices, indices_char, char_vocab
