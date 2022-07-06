@@ -19,10 +19,10 @@ class FileWork:
         text_array = []
         print('reading files')
         i = 0
-        for filename in os.listdir("../fiction/"):
+        for filename in os.listdir("./fiction/"):
             try:
                 if i < self.STORY_LIMIT:
-                    text = (open(os.path.join("../fiction/", filename), encoding="utf8").read())
+                    text = (open(os.path.join("./fiction/", filename), encoding="utf8").read())
                     i = i + 1
                     text_array.append(text)
             except:

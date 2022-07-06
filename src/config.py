@@ -1,8 +1,8 @@
 MIN_WORD_FREQUENCY = 5
-maxlen = 25
+SEQUENCE_SIZE = 25
 BATCH_SIZE = 20
-num_epochs = 10
+NUM_EPOCHS = 10
 
 
 def get_configs():
-    return maxlen, BATCH_SIZE, num_epochs, MIN_WORD_FREQUENCY
+    return SEQUENCE_SIZE, BATCH_SIZE, NUM_EPOCHS, MIN_WORD_FREQUENCY

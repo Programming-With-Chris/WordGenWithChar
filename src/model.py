@@ -4,7 +4,7 @@ from config import *
 import tensorflow as tf
 import numpy as np
 
-sequence_size, BATCH_SIZE, num_epochs, MIN_WORD_FREQUENCY = get_configs()
+SEQUENCE_SIZE, BATCH_SIZE, NUM_EPOCHS, MIN_WORD_FREQUENCY = get_configs()
 
 
 def create_sequences(char_array):
@@ -12,9 +12,9 @@ def create_sequences(char_array):
     sequences = []
     next_char = []
 
-    for i in range(0, len(char_array) - sequence_size, step):
-        sequences.append(char_array[i: i + sequence_size])
-        next_char.append(char_array[i + sequence_size])
+    for i in range(0, len(char_array) - SEQUENCE_SIZE, step):
+        sequences.append(char_array[i: i + SEQUENCE_SIZE])
+        next_char.append(char_array[i + SEQUENCE_SIZE])
 
     return sequences, next_char
 
@@ -22,7 +22,7 @@ def create_sequences(char_array):
 def vectorization(sequences_array, next_char_array, batch_size, char_array, char_indicies):
     index = 0
     while True:
-        x = np.zeros((batch_size, sequence_size, len(char_array)), dtype=np.bool)
+        x = np.zeros((batch_size, SEQUENCE_SIZE, len(char_array)), dtype=np.bool)
         y = np.zeros((batch_size, len(char_array)), dtype=np.bool)
         for i in range(batch_size):
             for t, c in enumerate(sequences_array[index]):
@@ -49,12 +49,10 @@ def shuffle_and_split_training_set(sequences_array, next_char_array, percentage_
     return x_train, y_train, x_test, y_test
 
 
-# Double check it's char_array and not something else
+# TODO Double check it's char_array and not something else
 def build_model(char_array):
     model = tf.keras.Sequential()
-    model.add(tf.keras.layer.LSTM(128, input_shape=(sequence_size, len(char_array)), activation='relu', return_sequences=True))
-    model.add(tf.keras.layer.LSTM(128, input_shape=(sequence_size, len(char_array)), activation='relu'))
+    model.add(tf.keras.layer.LSTM(128, input_shape=(SEQUENCE_SIZE, len(char_array)), activation='relu', return_sequences=True))
+    model.add(tf.keras.layer.LSTM(128, input_shape=(SEQUENCE_SIZE, len(char_array)), activation='relu'))
     model.add(tf.keras.layer.Dense(len(char_array), activation='softmax'))
     return model
-
-
